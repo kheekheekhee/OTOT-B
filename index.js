@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const app = express()
-const port = process.env.REACT_APP_PORT || 3000
+const port = process.env.PORT || 3000
 const mongoUri = process.env.REACT_APP_MONGOURI
 const apiRoutes = require("./api-routes")
 
