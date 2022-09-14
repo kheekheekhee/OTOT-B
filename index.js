@@ -1,8 +1,10 @@
+require("dotenv").config()
 const express = require('express')
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.REACT_APP_PORT || 3000
+const mongoUri = process.env.REACT_APP_MONGOURI
 const apiRoutes = require("./api-routes")
 
 app.use(bodyParser.urlencoded({
@@ -12,8 +14,7 @@ app.use(bodyParser.json())
 
 app.use("/api", apiRoutes)
 
-
-mongoose.connect("mongodb://localhost:27017/cs3219", { useNewUrlParser: 
+mongoose.connect(mongoUri, { useNewUrlParser: 
     true})
 
 const db = mongoose.connection
