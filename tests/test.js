@@ -31,7 +31,7 @@ describe("Contacts", () => {
                     res.should.have.status(200)
                     res.body.should.have.property("status").eql("success")
                     res.body.should.have.property("message").eql("Contacts retrieved successfully")
-                done()
+                    done()
                 })
         }).timeout(TIMEOUTTIME)
     })
@@ -51,14 +51,17 @@ describe("Contacts", () => {
                     res.body.data.should.have.property('gender').eql(BENETHAN_DOE.gender);
                     res.body.data.should.have.property('phone').eql(BENETHAN_DOE.phone);
                     res.body.data.should.have.property('_id').eql(contact.id);
-                done()
+                    done()
                 })
+                
+                Contact.deleteOne({ _id: contact.id })
             })
         }).timeout(TIMEOUTTIME)
     })
 
     describe("POST /api/contacts", () => {
         it("should create a new contact", (done) => {
+            var id;
             chai.request(app)
                 .post("/api/contacts")
                 .send(BENETHAN_DOE)
@@ -70,8 +73,10 @@ describe("Contacts", () => {
                     res.body.data.should.have.property('email').eql(BENETHAN_DOE.email);
                     res.body.data.should.have.property('gender').eql(BENETHAN_DOE.gender);
                     res.body.data.should.have.property('phone').eql(BENETHAN_DOE.phone);
-                done()
+                    id = res.body.data._id
+                    done()
                 })
+            Contact.deleteOne({ _id: id })
         }).timeout(TIMEOUTTIME)
     })
 
@@ -91,7 +96,8 @@ describe("Contacts", () => {
                     res.body.data.should.have.property('gender').eql(BENEDETTE_DOE.gender);
                     res.body.data.should.have.property('phone').eql(BENEDETTE_DOE.phone);
                     res.body.data.should.have.property('_id').eql(contact.id);
-                done()
+                    Contact.deleteOne({ _id: res.body.data._id })
+                    done()
                 })
             })
         }).timeout(TIMEOUTTIME)
@@ -108,7 +114,7 @@ describe("Contacts", () => {
                     res.body.should.be.a('object');
                     res.body.should.have.property('status').eql("success");
                     res.body.should.have.property('message').eql("Contact deleted");
-                done()
+                    done()
                 })
             })
         }).timeout(TIMEOUTTIME)

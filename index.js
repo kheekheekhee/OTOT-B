@@ -15,8 +15,10 @@ app.use(bodyParser.json())
 app.use("/api", apiRoutes)
 
 mongoose.connect(mongoUri, { useNewUrlParser: 
-    true})
+    true}
+    ).catch(error => console.log("Error connecting to MongoDB: " + error))
 
+mongoose.connection.once('open', () => console.log('Connected successfully to MongoDB'))
 const db = mongoose.connection
 
 if(!db)
