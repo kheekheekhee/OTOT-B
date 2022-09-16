@@ -27,7 +27,7 @@ describe("Contacts", () => {
     describe("GET /api/contacts/:id", () => {
         it("should get contact with the specified id", (done) => {
             const contact = new Contact(BENETHAN_DOE);
-            contact.save((err, book) => {
+            contact.save((err, contact) => {
                 chai.request(app)
                 .get("/api/contacts/" + contact._id)
                 .send(contact)
@@ -88,9 +88,9 @@ describe("Contacts", () => {
     describe("DELETE /api/contacts/:id", () => {
         it("should delete contact with the specified id", (done) => {
             const contact = new Contact(BENETHAN_DOE);
-            contact.save((err, book) => {
+            contact.save((err, contact) => {
                 chai.request(app)
-                .delete("/api/contacts/" + contact._id)
+                .delete("/api/contacts/" + contact.id)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
