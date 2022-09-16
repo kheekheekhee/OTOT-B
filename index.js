@@ -7,6 +7,8 @@ const port = process.env.PORT || 3000
 const mongoUri = process.env.REACT_APP_MONGOURI
 const apiRoutes = require("./api-routes")
 
+console.log("hi: " + mongoUri)
+
 app.use(bodyParser.urlencoded({
     extended: true
 }))
@@ -19,12 +21,12 @@ mongoose.connect(mongoUri, { useNewUrlParser:
     ).catch(error => console.log("Error connecting to MongoDB: " + error))
 
 mongoose.connection.once('open', () => console.log('Connected successfully to MongoDB'))
-const db = mongoose.connection
+// const db = mongoose.connection
 
-if(!db)
-    console.log("Error connecting db")
-else
-    console.log("Db connected successfully")
+// if(!db)
+//     console.log("Error connecting db")
+// else
+//     console.log("Db connected successfully")
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
