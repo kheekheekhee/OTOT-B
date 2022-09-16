@@ -7,8 +7,6 @@ const port = process.env.PORT || 3000
 const mongoUri = process.env.REACT_APP_MONGOURI
 const apiRoutes = require("./api-routes")
 
-console.log("hi: " + mongoUri)
-
 app.use(bodyParser.urlencoded({
     extended: true
 }))
