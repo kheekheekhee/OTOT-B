@@ -51,10 +51,9 @@ exports.update = (req, res) => {
         if (err) {
             res.send(err)
         }
-
         contact.name = req.body.name ? req.body.name : contact.name
         contact.gender = req.body.gender
-        contact.email = req.body.email
+        contact.email = req.body.email ? req.body.email : contact.email
         contact.phone = req.body.phone
 
         contact.save((err) => {
@@ -70,7 +69,7 @@ exports.update = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-    Contact.remove({
+    Contact.deleteOne({
         _id: req.params.contact_id
     }, (err, contact) => {
         if (err) {
