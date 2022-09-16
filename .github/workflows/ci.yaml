@@ -46,4 +46,4 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         run: |
           eb init --platform node.js --region ${{ secrets.AWS_DEFAULT_REGION }}
-          eb deploy
+          eb deploy Cs3219otot-env
