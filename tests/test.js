@@ -20,9 +20,9 @@ describe("Contacts", () => {
                     res.body.should.be.a('object')
                     res.body.should.have.property("status").eql("success")
                     res.body.should.have.property("message").eql("Contacts retrieved successfully")
-                    done()
+                done()
                 })
-        })
+        }).timeout(10000)
     })
     
     describe("GET /api/contacts/:id", () => {
@@ -44,7 +44,7 @@ describe("Contacts", () => {
                 done()
                 })
             })
-        })
+        }).timeout(10000)
     })
 
     describe("POST /api/contacts", () => {
@@ -62,7 +62,7 @@ describe("Contacts", () => {
                     res.body.data.should.have.property('phone').eql(BENETHAN_DOE.phone);
                 done()
                 })
-        })
+        }).timeout(10000)
     })
 
     describe("PUT /api/contacts/:id", () => {
@@ -84,7 +84,7 @@ describe("Contacts", () => {
                 done()
                 })
             })
-        })
+        }).timeout(10000)
     })
 
     describe("DELETE /api/contacts/:id", () => {
@@ -101,6 +101,6 @@ describe("Contacts", () => {
                 done()
                 })
             })
-        })
+        }).timeout(10000)
     })
 })
