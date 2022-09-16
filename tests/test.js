@@ -11,7 +11,7 @@ import Contact from '../model/contactModel.js';
 const mongoose = require("mongoose")
 chai.use(chaiHttp)
 const should = chai.should();
-const TIMEOUTTIME = 60000
+const TIMEOUTTIME = 10000
 
 describe("Contacts", () => {
     describe("GET /api/contacts", () => {
