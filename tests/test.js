@@ -7,6 +7,7 @@ import Contact from '../model/contactModel.js';
 
 chai.use(chaiHttp)
 const should = chai.should();
+const TIMEOUTTIME = 60000
 
 
 describe("Contacts", () => {
@@ -21,7 +22,7 @@ describe("Contacts", () => {
                     res.body.should.have.property("message").eql("Contacts retrieved successfully")
                 done()
                 })
-        }).timeout(10000)
+        }).timeout(TIMEOUTTIME)
     })
     
     describe("GET /api/contacts/:id", () => {
@@ -42,7 +43,7 @@ describe("Contacts", () => {
                 done()
                 })
             })
-        }).timeout(10000)
+        }).timeout(TIMEOUTTIME)
     })
 
     describe("POST /api/contacts", () => {
@@ -60,7 +61,7 @@ describe("Contacts", () => {
                     res.body.data.should.have.property('phone').eql(BENETHAN_DOE.phone);
                 done()
                 })
-        }).timeout(10000)
+        }).timeout(TIMEOUTTIME)
     })
 
     describe("PUT /api/contacts/:id", () => {
@@ -82,15 +83,13 @@ describe("Contacts", () => {
                 done()
                 })
             })
-        }).timeout(10000)
+        }).timeout(TIMEOUTTIME)
     })
 
     describe("DELETE /api/contacts/:id", () => {
         it("should delete contact with the specified id", (done) => {
             const contact = new Contact(BENETHAN_DOE);
-            console.log(contact)
             contact.save((err, contact) => {
-                console.log(contact)
                 chai.request(app)
                 .delete("/api/contacts/" + contact.id)
                 .end((err, res) => {
@@ -101,6 +100,6 @@ describe("Contacts", () => {
                 done()
                 })
             })
-        }).timeout(10000)
+        }).timeout(TIMEOUTTIME)
     })
 })
