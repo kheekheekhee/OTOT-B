@@ -17,7 +17,6 @@ describe("Contacts", () => {
                 .get("/api/contacts")
                 .end((err, res) => {
                     res.should.have.status(200)
-                    res.body.should.be.a('object')
                     res.body.should.have.property("status").eql("success")
                     res.body.should.have.property("message").eql("Contacts retrieved successfully")
                 done()
@@ -30,12 +29,11 @@ describe("Contacts", () => {
             const contact = new Contact(BENETHAN_DOE);
             contact.save((err, book) => {
                 chai.request(app)
-                .get("/api/contacts/" + contact.id)
+                .get("/api/contacts/" + contact._id)
                 .send(contact)
                 .end((err, res) => {
                     should.exist(res.body)
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
                     res.body.data.should.have.property('name').eql(BENETHAN_DOE.name);
                     res.body.data.should.have.property('email').eql(BENETHAN_DOE.email);
                     res.body.data.should.have.property('gender').eql(BENETHAN_DOE.gender);
@@ -92,7 +90,7 @@ describe("Contacts", () => {
             const contact = new Contact(BENETHAN_DOE);
             contact.save((err, book) => {
                 chai.request(app)
-                .delete("/api/contacts/" + contact.id)
+                .delete("/api/contacts/" + contact._id)
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
