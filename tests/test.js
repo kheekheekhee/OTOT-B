@@ -45,8 +45,6 @@ describe("Contacts", () => {
                     res.body.data.should.have.property('_id').eql(contact.id);
                     done()
                 })
-                
-                Contact.deleteOne({ _id: contact.id })
             })
         }).timeout(TIMEOUTTIME)
     })
@@ -68,7 +66,6 @@ describe("Contacts", () => {
                     id = res.body.data._id
                     done()
                 })
-            Contact.deleteOne({ _id: id })
         }).timeout(TIMEOUTTIME)
     })
 
@@ -88,7 +85,6 @@ describe("Contacts", () => {
                     res.body.data.should.have.property('gender').eql(BENEDETTE_DOE.gender);
                     res.body.data.should.have.property('phone').eql(BENEDETTE_DOE.phone);
                     res.body.data.should.have.property('_id').eql(contact.id);
-                    Contact.deleteOne({ _id: res.body.data._id })
                     done()
                 })
             })
