@@ -19,11 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
+        env:
+          REACT_APP_MONGOURI: ${{ secrets.REACT_APP_MONGOURI }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      env:
-        REACT_APP_MONGOURI: ${{ secrets.REACT_APP_MONGOURI }}
       - run: npm install
       - run: npm run build --if-present
       - run: npm test
