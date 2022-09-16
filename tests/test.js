@@ -88,7 +88,9 @@ describe("Contacts", () => {
     describe("DELETE /api/contacts/:id", () => {
         it("should delete contact with the specified id", (done) => {
             const contact = new Contact(BENETHAN_DOE);
+            console.log(contact)
             contact.save((err, contact) => {
+                console.log(contact)
                 chai.request(app)
                 .delete("/api/contacts/" + contact.id)
                 .end((err, res) => {
