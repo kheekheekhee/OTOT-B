@@ -29,7 +29,7 @@ describe("Contacts", () => {
             const contact = new Contact(BENETHAN_DOE);
             contact.save((err, contact) => {
                 chai.request(app)
-                .get("/api/contacts/" + contact._id)
+                .get("/api/contacts/" + contact.id)
                 .send(contact)
                 .end((err, res) => {
                     should.exist(res.body)
