@@ -1,3 +1,6 @@
+require("dotenv").config()
+require("babel-core/register");
+require("babel-polyfill");
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index.js';
@@ -5,12 +8,20 @@ import BENETHAN_DOE from './testdata/BenethanDoe.js'
 import BENEDETTE_DOE from './testdata/BenedetteDoe.js'
 import Contact from '../model/contactModel.js';
 
+const mongoose = require("mongoose")
 chai.use(chaiHttp)
 const should = chai.should();
 const TIMEOUTTIME = 60000
 
+const connectToDb = async () => {
+    mongoose.connect(process.env.REACT_APP_MONGOURI, { useNewUrlParser: 
+        true})
+}
 
 describe("Contacts", () => {
+    before(async () => {
+        await connectToDb().then(console.log('hi'))
+    })
     describe("GET /api/contacts", () => {
         // Test should get all contacts
         it("should get all contacts", (done) => {
