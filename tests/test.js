@@ -13,15 +13,7 @@ chai.use(chaiHttp)
 const should = chai.should();
 const TIMEOUTTIME = 60000
 
-const connectToDb = async () => {
-    mongoose.connect(process.env.REACT_APP_MONGOURI, { useNewUrlParser: 
-        true})
-}
-
 describe("Contacts", () => {
-    before(async () => {
-        await connectToDb().then(console.log('hi'))
-    })
     describe("GET /api/contacts", () => {
         // Test should get all contacts
         it("should get all contacts", (done) => {
