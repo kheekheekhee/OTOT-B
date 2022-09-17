@@ -5,7 +5,8 @@ exports.index = (req, res) => {
         if (err) {
             res.json({
                 status: "error",
-                message: err,
+                message: 'No such contact!',
+                error: err,
             })
         }
         res.json({
@@ -25,59 +26,91 @@ exports.new = (req, res) => {
 
     contact.save((err) => {
         if (err) {
-            res.json(err)
+            res.json({
+                message: 'Sorry failed to create contact!',
+                error: err
+            })
+        } else {
+            res.json({
+                message: "New contact created!",
+                data: contact
+            })
         }
-        res.json({
-            message: "New contact created!",
-            data: contact
-        })
     })
 }
 
 exports.view = (req, res) => {
     Contact.findById(req.params.contact_id, (err, contact) => {
         if (err) {
-            res.send(err)
+            res.json({
+                message: 'Sorry cannot find that contact!',
+                error: err
+            })
+        } else if (contact === null) {
+            res.json({
+                message: 'Sorry cannot find that contact!',
+            })
+        } else {
+            res.json({
+                message: "Contact details leading...",
+                data: contact
+            })
         }
-        res.json({
-            message: "Contact details leading...",
-            data: contact
-        })
     })
 }
 
 exports.update = (req, res) => {
     Contact.findById(req.params.contact_id, (err, contact) => {
         if (err) {
-            res.send(err)
-        }
-        contact.name = req.body.name ? req.body.name : contact.name
-        contact.gender = req.body.gender
-        contact.email = req.body.email ? req.body.email : contact.email
-        contact.phone = req.body.phone
-
-        contact.save((err) => {
-            if (err) {
-                res.json(err)
-            }
-            res.json({
-                message: "Contact info updated",
-                data: contact
+            res.send({
+                message: 'sorry cannot find that contact!',
+                error: err
             })
-        })
+        } else if (contact === null) {
+            res.json({
+                message: 'Sorry cannot find that contact!'
+            })
+        } else {
+            contact.name = req.body.name ? req.body.name : contact.name
+            contact.gender = req.body.gender ? req.body.gender : contact.gender
+            contact.email = req.body.email ? req.body.email : contact.email
+            contact.phone = req.body.phone ? req.body.phone : contact.phone
+    
+            contact.save((err) => {
+                if (err) {
+                    res.json({
+                        message: 'sorry something wrong happened',
+                        error: err
+                    })
+                } else {
+                    res.json({
+                        message: "Contact info updated",
+                        data: contact
+                    })
+                }
+            })
+        }
     })
 }
 
 exports.delete = (req, res) => {
-    Contact.deleteOne({
+    Contact.findOneAndDelete({
         _id: req.params.contact_id
     }, (err, contact) => {
         if (err) {
-            res.send(err)
+            res.send({
+                message: 'sorry cannot find that id',
+                error: err
+            })
+        } else if (!contact) {
+            res.json({
+                message: 'sorry cannot find that id'
+            })
+        } else {
+            res.json({
+                status: "success",
+                message: "Contact deleted"
+            })
         }
-        res.json({
-            status: "success",
-            message: "Contact deleted"
-        })
     })
 }
