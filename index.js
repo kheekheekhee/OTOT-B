@@ -6,6 +6,9 @@ const app = express()
 const port = process.env.PORT || 3000
 const mongoUri = process.env.REACT_APP_MONGOURI
 const apiRoutes = require("./api-routes")
+const cors = require("cors")
+
+app.use(cors())
 
 app.use(bodyParser.urlencoded({
     extended: true
